@@ -86,7 +86,7 @@ router.put("/:id/follow", async (req, res) => {
 
 //Unfollow a user
 router.put("/:id/unfollow", async (req, res) => {
-  if (req.body.userId !== req.params) {
+  if (req.body.userId !== req.params.id) {
     //When following an account append to that account the user is following and update its data for the followers' key and its value.
     try {
       const user = await User.findById(req.params.id);
@@ -94,8 +94,8 @@ router.put("/:id/unfollow", async (req, res) => {
       //If user includes this as a follower, then you cna unfollow such account accordingly
       if (user.followers.includes(req.body.userId)) {
         await user.updateOne({ $pull: { followers: req.body.userId}});
-        await currentUser.updaterOne({ $pull: { followings: req.params.id}});
-        res.status(200).json("User has been unfollowed");
+        await currentUser.updateOne({ $pull: { followings: req.params.id}});
+        res.status(200).json("User has been unfollowed.");
       }
       //Else, send a status code to the user stating that they already follow this individual
       else {
