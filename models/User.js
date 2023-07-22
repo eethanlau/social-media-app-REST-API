@@ -32,14 +32,32 @@ const UserSchema = new mongoose.Schema({
     // Empy by default
     default: []
   },
-  following: {
+  followings: {
     type: Array,
     default: []
   },
   isAdmin: {
     type: Boolean,
     default: false
-  }
+  },
+  //String for description
+  desc: {
+    type: String,
+    max: 50
+  },
+  //Max of 50 characters
+  city: {
+    type: String,
+    max: 50
+  },
+  from : {
+    type: String,
+    max: 50
+  },
+  relationship: {
+    type: Number,
+    enum: [1,2,3],
+  },
 },
 {timestamps:true}
 );

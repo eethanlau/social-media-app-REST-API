@@ -8,6 +8,10 @@ const morgan = require("morgan");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 
+app.use(
+  express.urlencoded({ extended: true })
+);
+
 dotenv.config();
 
 //Mongoose connection
@@ -23,11 +27,12 @@ app.get("/users", (req,res) => {
 })
 
 //Middleware for project
+//Might need to remove this but not sure just yet
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
-app.use("/api/user", userRoute);
+app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 
 app.listen(3000, () => {
