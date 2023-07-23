@@ -68,7 +68,7 @@ router.put("/:id/follow", async (req, res) => {
       //Prevent a user for following again after already following them once
       if (!user.followers.includes(req.body.userId)) {
         await user.updateOne({ $push: { followers: req.body.userId}});
-        await currentUser.updateOne({ $push: { followings: req.params.id}});
+        await currentUser.updateOne({ $push: { followings: req.params.id }});
         res.status(200).json("User has been followed.");
       }
       //Else, send a status code to the user stating that they already follow this individual
